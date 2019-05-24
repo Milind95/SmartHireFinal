@@ -1,0 +1,79 @@
+{
+  "_args": [
+    [
+      "@types/highcharts@5.0.39",
+      "C:\\Users\\mirohoka\\Desktop\\TCG work\\MyCluster ( Smart_Hire, DevOps, QEMM)\\Smart_Hire\\SmartHireV.2\\SmartHire17thMay"
+    ]
+  ],
+  "_development": true,
+  "_from": "@types/highcharts@5.0.39",
+  "_id": "@types/highcharts@5.0.39",
+  "_inBundle": false,
+  "_integrity": "sha512-eLmHtoCQFTF1da58xQ/ZVElbHxQVTrHq4zktDpnWmHBOBeNudkXanO1otsK9MkxQIPBSUKThVcM9LUrZbaQktA==",
+  "_location": "/@types/highcharts",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@types/highcharts@5.0.39",
+    "name": "@types/highcharts",
+    "escapedName": "@types%2fhighcharts",
+    "scope": "@types",
+    "rawSpec": "5.0.39",
+    "saveSpec": null,
+    "fetchSpec": "5.0.39"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/highcharts/-/highcharts-5.0.39.tgz",
+  "_spec": "5.0.39",
+  "_where": "C:\\Users\\mirohoka\\Desktop\\TCG work\\MyCluster ( Smart_Hire, DevOps, QEMM)\\Smart_Hire\\SmartHireV.2\\SmartHire17thMay",
+  "bugs": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
+  },
+  "contributors": [
+    {
+      "name": "Damiano Gambarotto",
+      "url": "https://github.com/damianog"
+    },
+    {
+      "name": "Dan Lewi Harkestad",
+      "url": "https://github.com/baltie"
+    },
+    {
+      "name": "Albert Ozimek",
+      "url": "https://github.com/AlbertOzimek"
+    },
+    {
+      "name": "Juliën Hanssens",
+      "url": "https://github.com/hanssens"
+    },
+    {
+      "name": "Johns Gresham",
+      "url": "https://github.com/jgresham"
+    },
+    {
+      "name": "ArunkeshavaReddy Sankaramaddi",
+      "url": "https://github.com/Arunkeshavareddy"
+    }
+  ],
+  "dependencies": {
+    "@types/geojson": "*"
+  },
+  "description": "TypeScript definitions for Highcharts",
+  "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped#readme",
+  "license": "MIT",
+  "main": "",
+  "name": "@types/highcharts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "directory": "types/highcharts"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.3",
+  "types": "index",
+  "typesPublisherContentHash": "e1e5454c876feb7e65d7fdc05f74952d82ecf0871dc29cf3af3c7650f1c8877e",
+  "version": "5.0.39"
+}

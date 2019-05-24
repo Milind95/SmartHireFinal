@@ -1,0 +1,64 @@
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { ReportfilterPage } from './reportfilter.page';
+import { SharedModule } from '../Shared/shared.module';
+// import { ChartModule } from 'angular-highcharts';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { NgSelectModule } from '@ng-select/ng-select';
+// import { SelectDropDownModule } from 'ngx-select-dropdown'
+// import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { IonicSelectableModule } from 'ionic-selectable';
+import {MatCardModule} from '@angular/material/card';
+import {A11yModule} from '@angular/cdk/a11y';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {PortalModule} from '@angular/cdk/portal';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {CdkTableModule} from '@angular/cdk/table';
+import {CdkTreeModule} from '@angular/cdk/tree';
+import {MatPaginatorModule,MatTableModule,MatSortModule, MatCheckboxModule}from '@angular/material';
+
+import * as highcharts from 'highcharts';
+import { ChartModule } from 'angular2-highcharts';
+
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ReportfilterPage
+  }
+];
+
+@NgModule({
+  imports: [MatTableModule,MatSortModule, MatCheckboxModule,  
+    MatPaginatorModule,
+    CdkTreeModule,
+    CdkTableModule,
+    CdkStepperModule,
+    ScrollingModule,
+    PortalModule,
+    DragDropModule,
+    A11yModule,
+    MatCardModule,
+    IonicSelectableModule,
+    // MultiselectDropdownModule,
+    // SelectDropDownModule,
+    NgSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+    SharedModule,
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes),
+    ChartModule.forRoot(highcharts),
+    
+    
+  ],
+  declarations: [ReportfilterPage],
+  schemas: [NO_ERRORS_SCHEMA],
+})
+export class ReportfilterPageModule {}

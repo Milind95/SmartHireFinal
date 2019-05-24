@@ -1,0 +1,25 @@
+.ion-color-warning {
+    --ion-color-base: #f7660f !important;
+}
+
+.rightFloat{
+    float: right;
+}
+    .dateSet{
+   width:165%;margin-left: 6%;
+   border: none;
+   background: #DCDCDC;
+}
+mat-form-field{
+    width: 80%
+}
+ion-icon {
+    // margin-top: 3px; 
+    margin-top: -3px;
+    height: 30px;
+    width: 30px; //Preferred size here
+}
+::placeholder {
+    color: black;
+    font-family: Lato, sans-serif;
+}

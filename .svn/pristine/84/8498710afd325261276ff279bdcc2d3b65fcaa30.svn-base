@@ -1,0 +1,68 @@
+import { DataService } from 'src/app/services/data.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { Platform } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+})
+export class HeaderComponent implements OnInit {
+  devWidth: any;
+  email: any;
+  role: any;
+  recuiterFlag: boolean = false;
+  pageName: String = '';
+
+  constructor(private router: Router,
+    private storage: Storage,
+    private menu: MenuController,
+    private platform: Platform,
+    private service: DataService) {
+    this.devWidth = this.platform.width();
+    this.email = localStorage.getItem("email");
+    // this.storage.get('email').then((val) => {
+    //   this.email = val;
+    // });
+    this.role = localStorage.getItem("role");
+
+    // this.storage.get('role').then((val) => {
+    // this.role = val;
+    if (this.role === 'Interviewer') {
+      this.recuiterFlag = false;
+    } else if (this.role === 'Recruiter') {
+      this.recuiterFlag = true;
+    }
+    // });
+  }
+
+  ngOnInit() { 
+    if(this.router.url === '/report') this.pageName = 'Dashboard';
+    else this.pageName = 'Reports';
+  }
+
+  interviewerCheckEvent(check) {
+    this.menu.toggle('mobile');
+  }
+
+  logout() {
+    // this.storage.clear();
+    // localStorage.clear();
+    this.router.navigate(["/login"]);
+    this.service.clearLoginInfo({
+      flag: true
+    });
+  }
+  reportPage(name) {
+    if(name === 'Dashboard') this.router.navigate(['/dashboard']);
+    else     this.router.navigate(["/report"])
+  }
+
+  reportsSection(){
+    this.router.navigate(['/dashboard']);
+  }
+
+}

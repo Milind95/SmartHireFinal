@@ -1,0 +1,465 @@
+
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { Router } from '@angular/router';
+import { MatTableDataSource, MatPaginator, MatSort, MatTable } from '@angular/material';
+import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
+
+export interface day {
+  id: number;
+  viewValue: string;
+}
+
+
+
+@Component({
+  selector: 'app-reportfilter',
+  templateUrl: './reportfilter.page.html',
+  styleUrls: ['./reportfilter.page.scss'],
+})
+export class ReportfilterPage implements OnInit {
+  
+      valueOfButton = "Table";
+      chartOptions: any;
+      TableChartOptions: { chart: { type: string; }; title: { text: string; }; plotOptions: { series: { dataLabels: { enabled: boolean; format: string; }; }; }; tooltip: { headerFormat: string; pointFormat: string; }; series: { name: string; colorByPoint: boolean; point: { events: { click: (event: any) => void; }; }; data: ({ name: string; y: any; sliced: boolean; selected: boolean; color: string; } | { name: string; y: any; color: string; sliced?: undefined; selected?: undefined; })[]; }[]; };
+      tableChartOptions: { chart: { type: string; }; title: { text: string; }; plotOptions: { series: { dataLabels: { enabled: boolean; format: string; }; }; }; tooltip: { headerFormat: string; pointFormat: string; }; series: { name: string; colorByPoint: boolean; point: { events: { click: (event: any) => void; }; }; data: ({ name: string; y: any; sliced: boolean; selected: boolean; color: string; } | { name: string; y: any; color: string; sliced?: undefined; selected?: undefined; })[]; }[]; };
+      selectedRow: any;
+      columnClicked: any;
+      availablePieChart: any;
+      bookedPieChart: any;
+      interviewedPieChart: any;
+      notInterviewedPieChart: any;
+      bookedBarChartL1: any[];
+      availableBarChartL1: any[];
+      notInterviewedBarChartL1: any[];
+      bookedBarChartL2: any[];
+      interviewedBarChartL2: any[];
+      availableBarChartL2: any[];
+      notInterviewedBarChartL2: any[];
+      totalAvailableChartL1: any[];
+      totalBookedChartL1: any[];
+      totalInterviewedChartL1: any[];
+      totalNotInterviewedChartL1: any[];
+      totalAvailableChartL2: any[];
+      totalBookedChartL2: any[];
+      totalInterviewedChartL2: any[];
+      totalNotInterviewedChartL2: any[];
+      interviewedBarChartL1: any;
+      showTmpl: boolean;
+      excelUrl0: string;
+      excelUrl1: string;
+      excelUrl2: string;
+      excelUrl3: string;
+      excelUrl4: string;
+      recruiterIdArray: any[];
+      initialFrom: any;
+      initialTo: any;
+      filterDaysSelected: any;
+      reportRequestBody: { "fromTime": any; "toTime": any; "interviewerEmailId": any; "techId": any[]; "supervisorEmailId": any; "interviewTypeId": number; "recruiterEmailId": any; "daysFilter": any; "buId": number; "accountId": any[]; };
+      showCheckTech: boolean;
+      techCheckboxValue = "Enable";
+      showTmpl1: any;
+      showTmpl2: boolean;
+      orgCheckboxValue = "Enable";
+      selectedDay: number;
+      selectedTechnology = [];
+      selectedOrg: number;
+      selectedMarketUnitValue = [];
+      daterange: any;
+      dateTimeRange: Date;
+      dateRangeArr = [];
+      @ViewChild('') dtRange1: any;
+  
+  
+  
+      constructor(private service: DataService, private router: Router) {
+  
+      }
+  
+      days: day[] = [
+          { id: 0, viewValue: 'All Day' },
+          { id: 1, viewValue: 'Week Day' },
+          { id: 2, viewValue: 'Week End' }
+      ];
+  
+      // public selectedMoment = new Date();  
+      buArray: any = [];
+      buarray: any = [];
+      filterIcon: boolean = false;
+      popoverController: any;
+      enableTechology: boolean = false;
+      checkboxDisabled: boolean = true;
+      checkboxDisabledOrg: boolean = true;
+      reportEnable: boolean = true;
+      marketUnitArray = [];
+      accountsArray = [];
+      accountId: any;
+      time: any;
+      completeReportData = [];
+      availableArray = [];
+      bookedArray = [];
+      interviewedArray = [];
+      notInterviewedArray = [];
+      // constructor(private service: DataService,private router: Router) {  }
+      combinedReportsData = [];
+      optionsModel: number[];
+      technologyArray: any = [];
+      techArray = [];
+      slotCountArray = [];
+      myOptions: { id: number; name: string; }[];
+      mobileFilter: boolean = false;
+  
+  
+  
+      displayedColumns: string[] = ['InterviewerEmpId', 'InterviewerName', 'InterviewerEmail', 'InterviewerGrade', 'InterviewerLocation',
+          'InterviewerSkills', 'ParticipationType', 'InterviewType', 'CreationDate', 'BookingDate', 'FromTime', 'ToTime',
+          'IsBooked', 'Technology', 'CandidateName', 'RecruiterEmpId', 'RecruiterName', 'RecruiterEmail', 'FeedbackStatus',
+          'SlotStatus', 'Account', 'MarkeUnit', 'Organization', 'Download'];
+  
+      dataSource = new MatTableDataSource();
+      @ViewChild(MatPaginator) paginator: MatPaginator;
+      @ViewChild(MatSort) sort: MatSort;
+  
+  
+      //BUArray
+      ngOnInit() {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.service.eventEmitterForEvent.subscribe(res => {
+              console.log("emitted event is", res);
+              if (res.flag) {
+                  this.technologyArray = this.service.technologyArray;
+                  this.buArray = this.service.buArray
+                  console.log("technologyArray ", this.technologyArray);
+                  console.log("BUArray ", this.buArray);
+                  this.techArray = [];
+                  this.technologyArray.forEach(tech => {
+                      this.techArray.push({
+                          // id: tech.id,
+                          name: tech.value
+                      });
+                  });
+  
+              }
+              console.log("yaaha dekho", this.buarray);
+          })
+  
+          this.service.getlookUpData();
+          this.reportsFunction();
+      }
+      onChange() {
+          console.log(this.optionsModel);
+      }
+  
+      settings: IMultiSelectSettings = {
+          enableSearch: true,
+          showCheckAll: true,
+          showUncheckAll: true,
+          fixedTitle: false
+      };
+  
+      prefixSearchFunction(str: string): RegExp {
+          return new RegExp('^' + str, 'i');
+      }
+  
+  
+      techEnable() {
+          // this.enableTechology= "true"
+          if (this.techEnable) {
+  
+              return (this.enableTechology = true)
+          }
+      }
+     
+  
+      reportsFunction() {
+          let start, end;
+          if (this.dateRangeArr.length > 0) {
+              start = new Date(this.dateRangeArr[0]).getTime();
+              end = new Date(this.dateRangeArr[1]).getTime();
+          } else {
+              start = new Date().setMonth(new Date().getMonth() - 1);
+              end = new Date().getTime();
+          }
+          let obj = {
+              fromTime: start,
+              toTime: end,
+              interviewerEmailId: null,
+              techId: this.selectedTechnology !== undefined ? this.selectedTechnology : [],
+              supervisorEmailId: null,
+              interviewTypeId: 0,
+              recruiterEmailId: null,
+              daysFilter: this.selectedDay !== undefined ? this.selectedDay : 0,
+              buId: this.selectedOrg !== undefined ? this.selectedOrg : 0,
+              accountId: this.accountId !== undefined ? this.accountId : []
+          }
+  
+          console.log("this is body ", obj)
+          this.service.eventEmitterForReports.subscribe(res => {
+              if (res.flag) {
+                  this.completeReportData = this.service.completeReportArray;
+                  this.availableArray = this.service.availableArray;
+                  this.bookedArray = this.service.bookedArray;
+                  this.interviewedArray = this.service.interviewedArray;
+                  this.notInterviewedArray = this.service.notInterviewedArray;
+                  // this.barGraphData();
+                  console.log('this.completeReportData', this.completeReportData, this.availableArray);
+                  this.slotCountArray = [];
+  
+                  this.completeReportData.forEach(rep => {
+                      this.slotCountArray.push(rep.statusCount);
+                  })
+  
+                  // this.pieChartData = this.slotCountArray;
+                 
+              }
+          })
+          this.service.getReportsCompleteData(obj);
+      }
+  
+  
+  
+      reportsEvent() {
+          this.showTmpl = !this.showTmpl;
+          if (this.showTmpl) {
+              this.valueOfButton = "Chart"
+          } else {
+              this.valueOfButton = "Table"
+          }
+          console.log("inseide reports", this.time);
+          if (this.reportEnable) {
+              this.tabularReport(this.completeReportData, null);
+          } else {
+              this.reportEnable = true
+          }
+      }
+  
+      tabularReport(table, category) {
+  
+  
+  
+          console.log("table ", table);
+          if (table.length !== 0) {
+              this.combinedReportsData = []
+              for (let i = 0; i < table.length; i++) {
+  
+                  if (table[i].statusCount !== 0) {
+                      for (let j = 0; j < table[i].slotsDTO.length; j++) {
+                          let interviewerName, interviewerType;
+  
+  
+                          let slotDetails;
+                          if (table[i].slotsDTO[j].interviewerType === category) {
+                              console.log(table[i].slotsDTO[j].interviewerType, category)
+                              interviewerType = table[i].slotsDTO[j].interviewerType;
+                              slotDetails = table[i].slotsDTO[j].slotsDetails;
+                          } else {
+                              if (table[i].slotsDTO[j].interviewerName !== null && table[i].slotsDTO[j].interviewerType !== null) {
+                                  interviewerName = table[i].slotsDTO[j].interviewerName;
+                                  interviewerType = table[i].slotsDTO[j].interviewerType;
+                              }
+                              else {
+                                  interviewerName = "NA";
+                                  interviewerType = "NA";
+                              }
+                              slotDetails = table[i].slotsDTO[j].slotsDetails;
+                          }
+  
+                          for (let r = 0; r < slotDetails.length; r++) {
+                              let from = new Date(slotDetails[r].fromDate).toString().split(" ");
+                              let to = new Date(slotDetails[r].toDate).toString().split(" ");
+                              let create = new Date(slotDetails[r].creationDate).toString().split(" ");
+  
+                              let feedbackStatus, feedbackComment;
+  
+                              if (slotDetails[r].feedbackDetails === null) {
+                                  feedbackStatus = "NA";
+                                  feedbackComment = "NA";
+                              } else {
+                                  feedbackStatus = slotDetails[r].feedbackDetails.feedbackStatus;
+                                  feedbackComment = slotDetails[r].feedbackDetails.feedbackComment;
+                              }
+                              let recId, recName, recEmail, download1, download;
+                              // if (slotDetails[r].recruiterDetails !== null && slotDetails[r].slotStatus == "INTERVIEWED" && slotDetails[r].isDirectBooked == "N") {
+                              //     let interviewType;
+                              //     if (table[i].slotsDTO[j].interviewerType == 'L1') {
+                              //         interviewType = "1"
+                              //     }
+                              //     if (table[i].slotsDTO[j].interviewerType == "L2") {
+                              //         interviewType = "2"
+                              //     }
+  
+                              //     let recCalendarId = slotDetails[r].recruiterDetails.recruiterCalendarId;
+                              //     download1 = "http://3.209.34.157:8080/report/generatePdf?interviewTypeId=" + interviewType + "&recruiterCalendarId=" + recCalendarId + "&interviewerCalendarId=0"
+                              //     recId = slotDetails[r].recruiterDetails.id;
+                              //     recName = slotDetails[r].recruiterDetails.name;
+                              //     recEmail = slotDetails[r].recruiterDetails.emailId;
+                              //     download = "<a href=" + download1 + ">Click me</a>"
+  
+                              // } else {
+                              //     recId = 'NA';
+                              //     recName = 'NA';
+                              //     recEmail = 'NA';
+                              //     var download1 = "http://3.209.34.157:8080/report/generatePdf?interviewTypeId=" + interviewType + "&recruiterCalendarId=0&interviewerCalendarId=0"
+                              //     var download = "<a class=" + this.class + ">Click me</a>"
+                              //     $('.' + this.class).css({
+                              //       'opacity': '0.5',
+                              //       'text-decoration': 'none'
+                              //     })
+                              // }
+  
+                              let candidateName, tech;
+                              if (slotDetails[r].isDirectBooked == "N" && slotDetails[r].isBooked == "N") {
+                                  candidateName = "NA";
+  
+                              } else {
+                                  candidateName = slotDetails[r].candidateName;
+                              }
+  
+                              if (slotDetails[r].technology !== null) {
+                                  tech = slotDetails[r].technology;
+                              } else {
+                                  tech = 'NA';
+                              }
+  
+                              var object = {
+                                  "InterviewerName": interviewerName,
+                                  "InterviewType": interviewerType,
+                                  "candidateName": candidateName,
+                                  "FeedbackStatus": feedbackStatus,
+                                  "fromTime": from[4],
+                                  "toTime": to[4],
+                                  "InterviewerEmpId": table[i].slotsDTO[j].interviewerId,
+                                  "InterviewerEmail": table[i].slotsDTO[j].emailId,
+                                  "InterviewerGrade": table[i].slotsDTO[j].grade,
+                                  "InterviewerLocation": table[i].slotsDTO[j].location,
+                                  "InterviewerSkills": table[i].slotsDTO[j].skills,
+                                  "ParticipationType": table[i].slotsDTO[j].participationType,
+                                  "CreationDate": create[0] + " " + create[1] + " " + create[2] + " " + create[3],
+                                  "BookingDate": from[0] + " " + from[1] + " " + from[2] + " " + from[3],
+                                  "IsBooked": slotDetails[r].isBooked,
+                                  "Technology": tech,
+                                  "RecruiterEmpId": recId,
+                                  "RecruiterName": recName,
+                                  "RecruiterEmail": recEmail,
+                                  "SlotStatus": slotDetails[r].slotStatus,
+                                  "Account": table[i].slotsDTO[j].account,
+                                  "MarketUnit": table[i].slotsDTO[j].marketUnit,
+                                  "Organization": table[i].slotsDTO[j].organization,
+                                  "Download": download,
+                                  "Is DirectBooked": slotDetails[r].isDirectBooked
+  
+                              }
+                              this.combinedReportsData.push(object);
+                          }
+                      }
+  
+                  }
+              }
+              console.log('this.combinedReportsData', this.combinedReportsData, this.slotCountArray);
+              console.log('this.slotCountArray', this.slotCountArray);
+              this.dataSource = new MatTableDataSource(this.combinedReportsData);
+  
+          }
+          this.reportEnable = false;
+  
+      }
+      showFilterpage() {
+          this.mobileFilter = true;
+      }
+      gotoFilterPage() {
+          console.log("Hello i m here filter")
+          this.router.navigate(["/report"]);
+      }
+  
+  
+  
+  
+  
+      techCheckbox(click) {
+          console.log(click);
+          console.log(this.accountId, this.dateTimeRange, this.dtRange1);
+          this.showTmpl1 = !this.showTmpl1;
+          if (click.checked) {
+              this.techCheckboxValue = "Disable"
+              this.checkboxDisabled = false;
+          } else {
+              this.techCheckboxValue = "Enable"
+              this.checkboxDisabled = true;
+              this.selectedTechnology = undefined;
+              this.reportsFunction();
+          }
+      }
+      orgCheckbox(click) {
+          console.log(click);
+          this.showTmpl2 = !this.showTmpl2;
+          if (click.checked) {
+              this.orgCheckboxValue = "Disable"
+              this.checkboxDisabledOrg = false;
+          } else {
+              this.orgCheckboxValue = "Enable"
+              this.checkboxDisabledOrg = true;
+              this.selectedOrg = undefined;
+              this.selectedMarketUnitValue = undefined;
+              this.accountId = undefined;
+              this.reportsFunction();
+          }
+      }
+  
+  
+      seletedTechValue(techValue) {
+          console.log(techValue);
+          this.reportsFunction();
+      }
+      seletedDayValue(dayValue) {
+          console.log("day value ", dayValue);
+          this.reportsFunction();
+  
+      }
+  
+      selectedOrganization(org) {
+          this.service.getMarketUnitByBu(org).subscribe(res => {
+              console.log("res", res);
+              let arr = [];
+              arr.push(res);
+              this.marketUnitArray = arr[0];
+          })
+  
+          this.accountId = undefined;
+          this.selectedMarketUnitValue = undefined;
+      }
+  
+      selectedMarketUnit(mu) {
+          let muArr = [];
+          muArr.push(mu)
+          this.service.getAccountByMu({ muId: muArr }).subscribe(res => {
+              let arr = [], accArr = [];
+              arr.push(res);
+              this.accountsArray = arr[0];
+              this.accountsArray.forEach(acc => {
+                  accArr.push(acc.id);
+              });
+              this.accountId = accArr;
+              console.log("account arr", this.accountId);
+              this.reportsFunction();
+          })
+      }
+  
+      selectedAccount(account) {
+          console.log('hello');
+          this.reportsFunction();
+  
+      }
+  
+  
+  
+      getDateRange(event?) {
+          console.log(event);
+          console.log(event.value[0].getTime());
+          console.log(event.value[1].getTime());
+          this.dateRangeArr = event.value
+          this.reportsFunction();
+      }
+
+  }
+  

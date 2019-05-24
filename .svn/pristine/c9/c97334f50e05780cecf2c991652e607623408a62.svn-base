@@ -1,0 +1,71 @@
+{
+  "_args": [
+    [
+      "ionic-selectable@4.4.0",
+      "C:\\Users\\mirohoka\\Desktop\\TCG work\\MyCluster ( Smart_Hire, DevOps, QEMM)\\Smart_Hire\\SmartHireV.2\\SmartHire17thMay"
+    ]
+  ],
+  "_from": "ionic-selectable@4.4.0",
+  "_id": "ionic-selectable@4.4.0",
+  "_inBundle": false,
+  "_integrity": "sha512-1ET0wbw6t2Vap1YoPS6BIrnt5oJrGMU4dSVnyzxJWZCiqmoOPlXr+RN8vpq4ULSA6kyh2ZWZpMt5eTLczkun0g==",
+  "_location": "/ionic-selectable",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "ionic-selectable@4.4.0",
+    "name": "ionic-selectable",
+    "escapedName": "ionic-selectable",
+    "rawSpec": "4.4.0",
+    "saveSpec": null,
+    "fetchSpec": "4.4.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ionic-selectable/-/ionic-selectable-4.4.0.tgz",
+  "_spec": "4.4.0",
+  "_where": "C:\\Users\\mirohoka\\Desktop\\TCG work\\MyCluster ( Smart_Hire, DevOps, QEMM)\\Smart_Hire\\SmartHireV.2\\SmartHire17thMay",
+  "author": {
+    "name": "Evgenii Koriakin",
+    "url": "https://github.com/eakoriakin"
+  },
+  "bugs": {
+    "url": "https://github.com/eakoriakin/ionic-selectable/issues"
+  },
+  "description": "An Ionic component similar to Ionic Select, that allows to search items, including async search, group, add, edit, delete items, and much more.",
+  "es2015": "esm2015/ionic-selectable.min.js",
+  "homepage": "https://github.com/eakoriakin/ionic-selectable",
+  "keywords": [
+    "ionic",
+    "ionic 2",
+    "ionic 3",
+    "ionic 4",
+    "ion-select",
+    "search",
+    "searchable",
+    "searchbar",
+    "select",
+    "selectable"
+  ],
+  "license": "See license in LICENSE",
+  "main": "bundles/ionic-selectable.umd.min.js",
+  "metadata": "ionic-selectable.metadata.json",
+  "module": "esm5/ionic-selectable.min.js",
+  "name": "ionic-selectable",
+  "peerDependencies": {
+    "@angular/core": ">=6.1.1",
+    "@ionic/angular": ">=4.0.0-beta.19",
+    "rxjs": ">=6.2.2",
+    "zone.js": ">=0.8.26"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eakoriakin/ionic-selectable.git"
+  },
+  "title": "Ionic Selectable",
+  "types": "ionic-selectable.d.ts",
+  "typings": "ionic-selectable.d.ts",
+  "version": "4.4.0"
+}

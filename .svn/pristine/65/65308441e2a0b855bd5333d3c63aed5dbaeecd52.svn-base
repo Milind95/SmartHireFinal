@@ -1,0 +1,122 @@
+
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <h5>Report Filter</h5>
+      <!-- <ion-back-button text="Filters" icon="arrow-round-back"></ion-back-button> -->
+    </ion-buttons>
+<!-- 
+    <ion-button   (click)="OnClear()" fill="outline" class="rightFloat">
+      <ion-icon name="trash"></ion-icon>clear
+    </ion-button> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <p-card>
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col  class="selfCentreAlign noBorder" align-self-center size-md="6" size-lg="6" size-xs="12">
+         
+            <label>
+              <div class="row">
+                <div class="col-lg-x col-sm-x col-xs-x col-md-x col-xl-x col-x">
+              <ion-icon class="icon" ios="ios-calendar" md="md-calendar"></ion-icon>
+              </div>
+              <div lass="col-lg-x col-sm-x col-xs-x col-md-x col-xl-x col-x">
+                <input class="dateSet" placeholder="4/1/2019, 7:57 PM ~ 4/30/2019, 7:57 PM"
+                [style.width]="'300px'"
+                [(ngModel)]="dateTimeRange"
+                [selectMode]="'range'"
+                [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" (dateTimeChange)="getDateRange($event)">
+         <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
+            </div>
+              </div>
+            </label>
+           
+          
+        </ion-col>
+      
+        <ion-col  class="selfCentreAlign noBorder" align-self-center size-md="6" size-lg="6" size-xs="12">
+          <mat-checkbox style="color: black; margin-left: -16px"  (change)="techCheckbox($event)"> Click here to {{techCheckboxValue}} Technology</mat-checkbox>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col  class="selfCentreAlign noBorder" align-self-center size-md="6" size-lg="6" size-xs="12">
+          <mat-form-field>
+            <mat-label>Select Technology</mat-label>
+            <mat-select style="color: black"  [(ngModel)] = "selectedTechnology" multiple [disabled]="checkboxDisabled" (selectionChange)="seletedTechValue($event.value)" >
+              <mat-option style="color: black" *ngFor="let tech of technologyArray" [value]="tech.id">{{tech.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ion-col>
+  
+        <ion-col  class="selfCentreAlign noBorder" align-self-center size-md="6" size-lg="6" size-xs="12">
+          <mat-form-field>
+            <mat-label>Select Day</mat-label>
+            <mat-select [(ngModel)]="selectedDay" (selectionChange)="seletedDayValue($event.value)" >
+              <mat-option *ngFor="let day of days" [value]="day.id" style="color: black">
+                {{day.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col  class="selfCentreAlign noBorder" align-self-center size-md="6" size-lg="6" size-xs="12">
+          <label>
+            <div class="row" style="margin-top: 10%">
+                <mat-checkbox style="color: black"  (change)="orgCheckbox($event)"> Click to {{orgCheckboxValue}} Filter by Organisation</mat-checkbox>
+            </div>
+          </label>
+        </ion-col>
+     
+        <ion-col class="noBorder" align-self-center size-md="6" size-lg="6" size-xs="12">
+        <mat-form-field>
+          <mat-label>Select Organisation</mat-label>
+          <mat-select style="color: black" [(ngModel)]="selectedOrg"  [disabled]="checkboxDisabledOrg" (selectionChange)="selectedOrganization($event.value)">
+            <mat-option style="color: black" *ngFor="let BU of buArray" [value]="BU.id">{{BU.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="selfCentreAlign noBorder" align-self-center size-md="6" size-lg="6" size-xs="12">
+          <mat-form-field>
+            <mat-label>Select Market Unit</mat-label>
+           <mat-select style="color: black" [(ngModel)]="selectedMarketUnitValue"  (selectionChange)="selectedMarketUnit($event.value.id)">
+              <mat-option style="color: black" *ngFor="let tech of marketUnitArray" [value]="tech">{{tech.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ion-col>
+      
+        <ion-col  class="selfCentreAlign noBorder" align-self-center size-md="6" size-lg="6" size-xs="12">
+          <mat-form-field>
+            <mat-label>Select Account</mat-label>
+            <mat-select  style="color: black" multiple required  [(ngModel)]="accountId"   (selectionChange)="selectedAccount($event.value.id)">   
+              <mat-option *ngFor="let tech of accountsArray" [checked]="true" [value]="tech.id">{{tech.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </p-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="8">
+
+        </ion-col>
+        <ion-col size-xs="4">
+          <ion-button (click)="gotoFilterPage()" expand="block" color="warning">Apply</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-toolbar>
+</ion-footer>
