@@ -9,7 +9,8 @@
         </ion-col>
         <ion-col size-xs="10" size-sm="10">
           <ion-input *ngIf="isRecruiter" [(ngModel)]="candidateName" class="candidateInput" clearInput placeholder="Candidate Name *"></ion-input>
-          <ion-input *ngIf="!isRecruiter" [(ngModel)]="email" class="candidateInput" placeholder="Interviewer email" disabled></ion-input>
+          <ion-input *ngIf="!isRecruiter" [(ngModel)]="email" class="candidateInput" placeholder="Interviewer email"
+            disabled></ion-input>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -32,8 +33,8 @@
         </span>
       </ion-col>
       <ion-col size-xs="8">
-        <input [(ngModel)]="selectedTime" class="timeClass" placeholder="Select Time slot" aria-label="12hr format" [ngxTimepicker]="default"
-          [min]="'8:00 am'" [max]="'8:00 pm'" [format]="12" readonly>
+        <input [(ngModel)]="selectedTime" class="timeClass" placeholder="Select Time slot" aria-label="12hr format"
+          [ngxTimepicker]="default" [min]="'8:00 am'" [max]="'8:00 pm'" [format]="12" readonly>
         <ngx-material-timepicker (timeSet)="timeSet($event)" [minutesGap]="5" #default></ngx-material-timepicker>
       </ion-col>
     </ion-row>
@@ -50,19 +51,22 @@
     <ion-row *ngIf="isRecruiter">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <ion-label position="stacked">Technology</ion-label>
-        <p-dropdown [options]="technologies" [(ngModel)]="selectedTechnology" [filter]="true" filterBy="label,value.name" (onChange)="techChange($event)"></p-dropdown>
+        <p-dropdown [options]="technologies" [(ngModel)]="selectedTechnology" [filter]="true" filterBy="label,value.name"
+          (onChange)="techChange($event)"></p-dropdown>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="isRecruiter">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <ion-label position="stacked">Business Unit</ion-label>
-        <p-dropdown [options]="businessUnits" [(ngModel)]="selectedBussinessUnit" [filter]="true" filterBy="label,value.name" (onChange)="buChange($event)"></p-dropdown>
+        <p-dropdown [options]="businessUnits" [(ngModel)]="selectedBussinessUnit" [filter]="true" filterBy="label,value.name"
+          (onChange)="buChange($event)"></p-dropdown>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="isRecruiter">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <ion-label position="stacked">Interviewer's Availability</ion-label>
-        <p-dropdown [options]="interviewersArray" [(ngModel)]="selectedInterviewer" [filter]="true" filterBy="label,value.name" (onChange)="interviewerChange($event)"></p-dropdown>
+        <p-dropdown [options]="interviewersArray" [(ngModel)]="selectedInterviewer" [filter]="true" filterBy="label,value.name"
+          (onChange)="interviewerChange($event)"></p-dropdown>
       </ion-col>
     </ion-row>
 
@@ -91,18 +95,32 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="multipleDaysSlideModel">
+    <ion-row *ngIf="multipleDaysSlideModel" style="text-align: center;">
       <ion-col size-xs="12" size-sm="12" size-md="12">
-        <input [min]="bookingDateInDateFormat" [max]="maxDate" class="inputRangeCalendar" [owlDateTime]="dt1" [selectMode]="'rangeTo'"
+        <!-- <input [min]="bookingDateInDateFormat" [max]="maxDate" class="inputRangeCalendar" [owlDateTime]="dt1" [selectMode]="'rangeTo'"
           [owlDateTimeTrigger]="dt1" placeholder="Select To date" (dateTimeChange)="getDateDifference($event)">
-        <ion-icon class="calendarIcon" [owlDateTimeTrigger]="dt1" size="large" name="calendar"></ion-icon>
-        <owl-date-time [startAt]="minDate" [pickerType]="'calendar'" [pickerMode]="'popup'" #dt1></owl-date-time>
+        <ion-icon class="calendarIcon" [owlDateTimeTrigger]="dt1" size="large" name="calendar"></ion-icon> -->
+        <owl-date-time-inline [min]="bookingDateInDateFormat" [selectMode]="'rangeTo'" [(ngModel)]="selectedDateRange"
+          [max]="maxDate" [startAt]="minDate" [pickerType]="'calendar'" (dateChange)="dateTimeChangeEvent($event)"></owl-date-time-inline>
       </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="multipleDaysSlideModel" class="checkboxIonRow">
+      <div *ngFor="let day of weekDays" class="weekDaysClass">
+        <span class="weekDaysInnerClass">
+          <strong [ngStyle]="{'opacity' : day.isDisabled ? '0.3' : '1' }">
+            {{day.value}}
+          </strong>
+          <ion-checkbox [(ngModel)]="day.isChecked" [disabled]="day.isDisabled" mode="ios"></ion-checkbox>
+        </span>
+
+      </div>
     </ion-row>
 
     <ion-row *ngIf="multipleDaysSlideModel">
       <ion-col size-xs="12" size-sm="12" size-md="12">
-        <p-multiSelect [style]="{'width': '100%'}" [filter]="false" [options]="weekData" [(ngModel)]="weekModel" (onChange)="onWeekDaysBlur()"></p-multiSelect>
+        <p-multiSelect [style]="{'width': '100%'}" [filter]="false" [options]="weekData" [(ngModel)]="weekModel"
+          (onChange)="onWeekDaysBlur()"></p-multiSelect>
       </ion-col>
     </ion-row>
     <ion-row *ngIf="multipleDaysSlideModel && weekModel && weekModel.length >= 4">
@@ -118,7 +136,8 @@
     <ion-row *ngIf="isInterviewer">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <ion-label position="stacked">Participation Type</ion-label>
-        <ion-select class="participationTypeClass" interface="popover" placeholder="Select Participation Type" [(ngModel)]="participationType">
+        <ion-select class="participationTypeClass" interface="popover" placeholder="Select Participation Type"
+          [(ngModel)]="participationType">
           <ion-select-option value="{{pType.id}}" *ngFor="let pType of participationTypes">{{pType.value}}</ion-select-option>
         </ion-select>
       </ion-col>

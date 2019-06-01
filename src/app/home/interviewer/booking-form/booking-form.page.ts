@@ -54,6 +54,51 @@ export class BookingFormPage implements OnInit, OnDestroy {
   bookingDateInfoSubscription: Subscription;
   panelAvailabilityFlag: boolean = false;
   role: string;
+  selectedDateRange = [];
+
+
+  weekDays = [{
+    label: 'Sunday',
+    value: 'S',
+    isChecked: false,
+    isDisabled: false
+  },
+  {
+    label: 'Monday',
+    value: 'M',
+    isChecked: false,
+    isDisabled: false
+  },
+  {
+    label: 'Tuesday',
+    value: 'T',
+    isChecked: false,
+    isDisabled: false
+  },
+  {
+    label: 'Wednusday',
+    value: 'W',
+    isChecked: false,
+    isDisabled: false
+  },
+  {
+    label: 'Thursday',
+    value: 'T',
+    isChecked: false,
+    isDisabled: false
+  },
+  {
+    label: 'Friday',
+    value: 'F',
+    isChecked: false,
+    isDisabled: false
+  },
+  {
+    label: 'Saturday',
+    value: 'S',
+    isChecked: false,
+    isDisabled: false
+  }];
 
   weekData: SelectItem[] = [
     { label: 'Sunday', value: { id: 1, name: 'Sunday' } },
@@ -192,6 +237,7 @@ export class BookingFormPage implements OnInit, OnDestroy {
       this.bookingDateInDateFormat = res.date;
       this.bookingDateArray = this.bookingDate.split("-");
       this.rescheduleSlotInfo = res.slotInfo;
+      this.selectedDateRange[0] = this.bookingDateInDateFormat;
 
       if (res.slotInfo) {
         this.isReScheduleFlag = true;
@@ -652,5 +698,13 @@ export class BookingFormPage implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  dateTimeChangeEvent(event) {
+    console.log(event)
+  }
+
+  event() {
+    console.log(this.selectedDateRange);
   }
 }
