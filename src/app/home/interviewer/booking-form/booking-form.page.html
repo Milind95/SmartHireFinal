@@ -97,40 +97,46 @@
 
     <ion-row *ngIf="multipleDaysSlideModel" style="text-align: center;">
       <ion-col size-xs="12" size-sm="12" size-md="12">
-        <!-- <input [min]="bookingDateInDateFormat" [max]="maxDate" class="inputRangeCalendar" [owlDateTime]="dt1" [selectMode]="'rangeTo'"
-          [owlDateTimeTrigger]="dt1" placeholder="Select To date" (dateTimeChange)="getDateDifference($event)">
-        <ion-icon class="calendarIcon" [owlDateTimeTrigger]="dt1" size="large" name="calendar"></ion-icon> -->
-        <owl-date-time-inline [min]="bookingDateInDateFormat" [selectMode]="'rangeTo'" [(ngModel)]="selectedDateRange"
-          [max]="maxDate" [startAt]="minDate" [pickerType]="'calendar'" (dateChange)="dateTimeChangeEvent($event)"></owl-date-time-inline>
+
+        <!-- <input type="hidden" [min]="bookingDateInDateFormat" [max]="maxDate" class="inputRangeCalendar" [owlDateTime]="dt1" [selectMode]="'rangeTo'"
+          [owlDateTimeTrigger]="dt1" placeholder="Select To date" (dateTimeChange)="getDateDifference($event)"> -->
+
+        <!-- <ion-icon class="calendarIcon" [owlDateTimeTrigger]="dt1" size="large" name="calendar"></ion-icon> -->
+
+        <owl-date-time-inline #dt1 [min]="bookingDateInDateFormat" [selectMode]="'rangeTo'" [(ngModel)]="selectedDateRange"
+          [max]="maxDate" [startAt]="minDate" [pickerType]="'calendar'" (ngModelChange)="dateTimeChangeEvent($event)" [owlDateTimeFilter]="myFilter"></owl-date-time-inline>
+
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="multipleDaysSlideModel" class="checkboxIonRow">
+    <ion-row *ngIf="multipleDaysSlideModel && showCheckBox" class="checkboxIonRow">
       <div *ngFor="let day of weekDays" class="weekDaysClass">
         <span class="weekDaysInnerClass">
           <strong [ngStyle]="{'opacity' : day.isDisabled ? '0.3' : '1' }">
             {{day.value}}
           </strong>
-          <ion-checkbox [(ngModel)]="day.isChecked" [disabled]="day.isDisabled" mode="ios"></ion-checkbox>
+          <ion-checkbox [(ngModel)]="day.isChecked" [checked]="day.isChecked" [disabled]="day.isDisabled" mode="ios" (ionChange)="checkBoxChange($event,day)"></ion-checkbox>
         </span>
 
       </div>
     </ion-row>
 
-    <ion-row *ngIf="multipleDaysSlideModel">
+    <!-- <ion-row *ngIf="multipleDaysSlideModel">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <p-multiSelect [style]="{'width': '100%'}" [filter]="false" [options]="weekData" [(ngModel)]="weekModel"
           (onChange)="onWeekDaysBlur()"></p-multiSelect>
       </ion-col>
-    </ion-row>
-    <ion-row *ngIf="multipleDaysSlideModel && weekModel && weekModel.length >= 4">
+    </ion-row> -->
+
+
+    <!-- <ion-row *ngIf="multipleDaysSlideModel && weekModel && weekModel.length >= 4">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <ion-chip *ngFor="let day of weekModel" class="fontSizeForIonChip">
           <ion-label>{{day.name}}</ion-label>
           <ion-icon name="close" (click)="removeDay(day)"></ion-icon>
         </ion-chip>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
 
     <ion-row *ngIf="isInterviewer">

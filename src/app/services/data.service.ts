@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { Platform } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 import { map, filter } from 'rxjs/operators';
+import { LoaderMobileService } from './loader-mobile.service';
 
 const colors: any = {
   green: {
@@ -132,7 +133,8 @@ export class DataService {
 
   constructor(private http: HttpClient,
     private storage: Storage,
-    private platform: Platform) {
+    private platform: Platform,
+    public loader: LoaderMobileService) {
     this.deviceWidth = this.platform.width();
   }
 
@@ -148,6 +150,8 @@ export class DataService {
     } else {
       url = `${this.link}/interviewer/getAllInterviewerSlots`
     }
+    this.loader.show("Getting your slots !!");
+    console.log("I am waiting");
 
     this.http.post(url, {
       "email": this.email
@@ -234,14 +238,10 @@ export class DataService {
           }
           this.events.push(object);
         });
-
+        this.loader.hide();
         this.eventEmitterForEvent.emit({
           flag: true
         });
-
-
-
-
       }
 
       this.sortEvents(this.events);
@@ -268,13 +268,12 @@ export class DataService {
     let url: string;
     if (environment.idDummyJson) {
       console.log("environment.idDummyJson", environment.idDummyJson);
-
       url = "./assets/xyz.json"
     } else {
       console.log("inside else of dummyvjqehv");
-
       url = `${this.link}/recruiter/getAllRecruiterSlots`
     }
+    this.loader.show("Getting your slots !!");
 
     this.http.post(url, {
       "email": this.email
@@ -357,7 +356,7 @@ export class DataService {
           this.events.push(object);
         });
       }
-
+      this.loader.hide();
       this.eventsReplica = this.events;
       this.sortEvents(this.events);
       this.eventEmitterForEventRecruiter.next({

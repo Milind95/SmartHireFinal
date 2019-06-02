@@ -55,49 +55,56 @@ export class BookingFormPage implements OnInit, OnDestroy {
   panelAvailabilityFlag: boolean = false;
   role: string;
   selectedDateRange = [];
-
+  showCheckBox: boolean = false;
 
   weekDays = [{
+    id: 0,
     label: 'Sunday',
     value: 'S',
     isChecked: false,
-    isDisabled: false
+    isDisabled: true
   },
   {
+    id: 1,
     label: 'Monday',
     value: 'M',
     isChecked: false,
-    isDisabled: false
+    isDisabled: true
   },
   {
+    id: 2,
     label: 'Tuesday',
     value: 'T',
     isChecked: false,
-    isDisabled: false
+    isDisabled: true
   },
   {
+    id: 3,
     label: 'Wednusday',
     value: 'W',
     isChecked: false,
-    isDisabled: false
+    isDisabled: true
   },
   {
+    id: 4,
     label: 'Thursday',
     value: 'T',
     isChecked: false,
-    isDisabled: false
+    isDisabled: true
   },
   {
+    id: 5,
     label: 'Friday',
     value: 'F',
     isChecked: false,
-    isDisabled: false
+    isDisabled: true
   },
   {
+    id: 6,
     label: 'Saturday',
     value: 'S',
     isChecked: false,
-    isDisabled: false
+    isDisabled: true
   }];
 
   weekData: SelectItem[] = [
@@ -334,58 +341,75 @@ export class BookingFormPage implements OnInit, OnDestroy {
               toRepeat = fromRepeat + (60 * 60 * 1000);
             }
           } else {
-            if (this.weekModel.length !== 0) {
-              this.weekModel.forEach(week => {
-                this.finalDays[week.id - 1] = 1
-              });
-              this.loader.show("Booking your slot !!");
-              for (let i = 0; i < this.dateDiff; i++) {
-                if (this.finalDays[index % 7] === 1) {
-                  let fromRepeat = from;
-                  let toRepeat = to;
-                  for (let j = 0; j < slotRepeat; j++) {
-                    let saveSlotDetails = {
-                      "email": "akshat.mangal@capgemini.com",
-                      "fromTime": fromRepeat,
-                      "toTime": toRepeat,
-                      "participationTypeId": this.participationType
-                    };
-                    console.log(saveSlotDetails);
-                    this.data.saveFreeSlot(saveSlotDetails).subscribe(res => {
-                      console.log(res);
-                      if (res["message"]) {
-                        if (i === this.dateDiff - 1 && j === slotRepeat - 1) {
-                          this.loader.hide();
-                          this.toasterNotification(res["message"]);
-                          this.data.getAllInterviewerSlots();
-                          this.bookingFormSubscription = this.data.eventEmitterForBookingForm.subscribe(res => {
-                            console.log("event emitter response is ", res);
-                            if (res.flag === 'fromBookingForm') {
-                              this.router.navigate(['/booking-view']);
-                              this.data.setRefreshDataFromBookingForm({
-                                date: this.bookingDateInDateFormat,
-                                flag: "bookingView"
-                              });
-                            }
-                          });
-                        }
 
-                      } else if (res["exception"]) {
-                        this.loader.hide();
-                        this.toasterNotification(res["exception"]);
-                      }
-                    });;
-                    fromRepeat = toRepeat;
-                    toRepeat = fromRepeat + (60 * 60 * 1000);
-                  }
+
+            // if (this.weekModel.length !== 0) {
+            // this.weekModel.forEach(week => {
+            //   this.finalDays[week.id - 1] = 1
+            // });
+
+            if (this.showCheckBox) {
+              let isCheckedCount = 0;
+              this.weekDays.forEach(weekDay => {
+                if (weekDay.isChecked) {
+                  isCheckedCount++;
+                  this.finalDays[weekDay.id] = 1
                 }
-                from += 24 * 60 * 60 * 1000;
-                to += 24 * 60 * 60 * 1000;
-                index++;
+              });
+
+              if (isCheckedCount > 0) {
+                this.loader.show("Booking your slot !!");
+                for (let i = 0; i < this.dateDiff; i++) {
+                  if (this.finalDays[index % 7] === 1) {
+                    let fromRepeat = from;
+                    let toRepeat = to;
+                    for (let j = 0; j < slotRepeat; j++) {
+                      let saveSlotDetails = {
+                        "email": "akshat.mangal@capgemini.com",
+                        "fromTime": fromRepeat,
+                        "toTime": toRepeat,
+                        "participationTypeId": this.participationType
+                      };
+                      console.log(saveSlotDetails);
+                      this.data.saveFreeSlot(saveSlotDetails).subscribe(res => {
+                        console.log(res);
+                        if (res["message"]) {
+                          if (i === this.dateDiff - 1 && j === slotRepeat - 1) {
+                            this.loader.hide();
+                            this.toasterNotification(res["message"]);
+                            this.data.getAllInterviewerSlots();
+                            this.bookingFormSubscription = this.data.eventEmitterForBookingForm.subscribe(res => {
+                              console.log("event emitter response is ", res);
+                              if (res.flag === 'fromBookingForm') {
+                                this.router.navigate(['/booking-view']);
+                                this.data.setRefreshDataFromBookingForm({
+                                  date: this.bookingDateInDateFormat,
+                                  flag: "bookingView"
+                                });
+                              }
+                            });
+                          }
+
+                        } else if (res["exception"]) {
+                          this.loader.hide();
+                          this.toasterNotification(res["exception"]);
+                        }
+                      });;
+                      fromRepeat = toRepeat;
+                      toRepeat = fromRepeat + (60 * 60 * 1000);
+                    }
+                  }
+                  from += 24 * 60 * 60 * 1000;
+                  to += 24 * 60 * 60 * 1000;
+                  index++;
+                }
+              } else {
+                this.toasterNotification("Please select at least one week day");
               }
             } else {
-              this.toasterNotification("Please select week days");
+              this.toasterNotification("Please select To Date");
             }
+
           }
         }
 
@@ -595,23 +619,24 @@ export class BookingFormPage implements OnInit, OnDestroy {
     this.bookingDateInfoSubscription.unsubscribe();
   }
 
-  onWeekDaysBlur() {
-    console.log(this.weekModel);
-    // this.finalDays
-  }
-  removeDay(day) {
-    console.log(day);
-    console.log(this.weekModel);
+  // onWeekDaysBlur() {
+  // console.log(this.weekModel);
+  // this.finalDays
+  // }
 
-    let sampleArray = this.weekModel;
+  // removeDay(day) {
+  //   console.log(day);
+  //   console.log(this.weekModel);
 
-    let index = sampleArray.indexOf(day);
-    console.log(index)
-    sampleArray.splice(index, 1);
-    this.weekModel = JSON.parse(JSON.stringify(sampleArray));
-    console.log(this.weekModel);
+  //   let sampleArray = this.weekModel;
 
-  }
+  //   let index = sampleArray.indexOf(day);
+  //   console.log(index)
+  //   sampleArray.splice(index, 1);
+  //   this.weekModel = JSON.parse(JSON.stringify(sampleArray));
+  //   console.log(this.weekModel);
+
+  // }
 
   timeSet(event) {
     console.log(event);
@@ -632,20 +657,64 @@ export class BookingFormPage implements OnInit, OnDestroy {
   }
 
   clearValues() {
-    this.finalDays = [0, 0, 0, 0, 0, 0, 0]
+    this.finalDays = [0, 0, 0, 0, 0, 0, 0];
   }
 
-  getDateDifference(event) {
-    console.log(event);
-
-    let toDate = new Date(event.value[1]).getTime();
-    let bookingDate = new Date(this.bookingDateInDateFormat.getFullYear(), this.bookingDateInDateFormat.getMonth(), this.bookingDateInDateFormat.getDate()).getTime();
-    console.log("toDate", toDate);
-    console.log("currentDate", bookingDate);
-
-    this.dateDiff = ((toDate - bookingDate) / (24 * 60 * 60 * 1000)) + 1;
-    console.log("this.dateDiff", this.dateDiff);
+  clearWeekDays() {
+    this.weekDays = [{
+      id: 0,
+      label: 'Sunday',
+      value: 'S',
+      isChecked: false,
+      isDisabled: true
+    },
+    {
+      id: 1,
+      label: 'Monday',
+      value: 'M',
+      isChecked: false,
+      isDisabled: true
+    },
+    {
+      id: 2,
+      label: 'Tuesday',
+      value: 'T',
+      isChecked: false,
+      isDisabled: true
+    },
+    {
+      id: 3,
+      label: 'Wednusday',
+      value: 'W',
+      isChecked: false,
+      isDisabled: true
+    },
+    {
+      id: 4,
+      label: 'Thursday',
+      value: 'T',
+      isChecked: false,
+      isDisabled: true
+    },
+    {
+      id: 5,
+      label: 'Friday',
+      value: 'F',
+      isChecked: false,
+      isDisabled: true
+    },
+    {
+      id: 6,
+      label: 'Saturday',
+      value: 'S',
+      isChecked: false,
+      isDisabled: true
+    }];
   }
+
+  // getDateDifference(event) {
+  //   console.log(event);
+  // }
 
   techChange(event) {
     this.fetchInterviewer();
@@ -701,10 +770,47 @@ export class BookingFormPage implements OnInit, OnDestroy {
   }
 
   dateTimeChangeEvent(event) {
-    console.log(event)
+    console.log(event);
+    if (event[1]) {
+      this.clearWeekDays();
+      let toDate = new Date(event[1]).getTime();
+      let bookingDate = new Date(this.bookingDateInDateFormat.getFullYear(), this.bookingDateInDateFormat.getMonth(), this.bookingDateInDateFormat.getDate()).getTime();
+      console.log("toDate", toDate);
+      console.log("currentDate", bookingDate);
+
+      this.dateDiff = ((toDate - bookingDate) / (24 * 60 * 60 * 1000)) + 1;
+      console.log("this.dateDiff", this.dateDiff);
+      let startingDay = event[0].getDay();
+      console.log("startingDay", startingDay);
+
+      for (let i = startingDay, counter = 0; counter < this.dateDiff; i++ , counter++) {
+        this.weekDays[i % 7].isDisabled = false;
+        this.weekDays[i % 7].isChecked = true;
+      }
+
+      this.showCheckBox = true;
+
+    } else {
+      this.showCheckBox = false;
+    }
   }
 
-  event() {
-    console.log(this.selectedDateRange);
+  checkBoxChange(event, day) {
+    console.log(event);
+    console.log(day);
   }
+
+  // myFilter = (d: Date): boolean => {
+  //   console.log("d day is", d);
+  //   const day = d.getDay();
+  //   let responseFlag = true;
+  //     this.weekDays.forEach(weekDay=>{
+  //       console.log("weekDay day is", weekDay);
+
+  //       if(weekDay.id === day && !weekDay.isChecked && !weekDay.isDisabled){
+  //         responseFlag = false;
+  //       }
+  //     });
+  //   return responseFlag;
+  // }
 }

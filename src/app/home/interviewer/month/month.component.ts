@@ -78,7 +78,7 @@ export class MonthComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log("ngOnInIt of month component");
     if (this.devWidth < 768) {
-      this.loader.show("Please Wait !!");
+      // this.loader.show("Please Wait !!");
       this.data.setHeaderDate({
         viewDate: new Date()
       })
@@ -134,7 +134,7 @@ export class MonthComponent implements OnInit, OnDestroy {
           if (res.flag) {
             this.events = this.data.events;
             console.log("Interviewer slots", this.events);
-            this.loader.hide();
+            // this.loader.hide();
           }
         });
         this.data.getAllInterviewerSlots();
@@ -148,7 +148,7 @@ export class MonthComponent implements OnInit, OnDestroy {
             this.events = this.data.events;
             console.log("Recruiter slots", this.events);
             this.replicateEvents = this.data.events;
-            this.loader.hide();
+            // this.loader.hide();
           }
         });
         if (!this.isFilterApplied) {

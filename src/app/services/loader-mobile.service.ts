@@ -12,7 +12,7 @@ export class LoaderMobileService {
   async show(msg) {
     this.loading = await this.loadingController.create({
       spinner: "bubbles",
-      duration: 500,
+      // duration: 500,
       message: msg,
       translucent: true,
       cssClass: 'custom-class custom-loading'
