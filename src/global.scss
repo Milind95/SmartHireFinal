@@ -193,4 +193,16 @@
 
 .owl-dt-container {
     z-index: 998 !important;
+    width: 100% !important;
+}
+.owl-dt-inline {
+    width: 100% !important;
+}
+.owl-dt-inline-container .owl-dt-calendar, .owl-dt-popup-container .owl-dt-calendar {
+    height: 22.25em !important;
+}
+
+
+.ionic-selectable-label-default .ionic-selectable-value, .ionic-selectable-label-fixed .ionic-selectable-value {
+    padding: 0px !important;
 }

@@ -14,6 +14,9 @@ export class SelectComponent implements OnInit {
   @Input() label: String;
   @Input() items: Select[];
   @Input() selectedItem: Select[];
+  @Input() isMultiple: boolean;
+  @Input() icon: string;
+
   @Output() output = new EventEmitter<Select[]>();
 
   constructor() {
@@ -24,14 +27,12 @@ export class SelectComponent implements OnInit {
     console.log("Label : ", this.label);
     console.log("Items : ", this.items);
     console.log("selectedItem : ", this.selectedItem);
-
   }
 
   change(event: {
     component: IonicSelectableComponent,
     value: any
   }) {
-    console.log('port:', event.value);
     this.output.emit(this.selectedItem)
 
   }

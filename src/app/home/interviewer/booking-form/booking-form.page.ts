@@ -33,7 +33,6 @@ export class BookingFormPage implements OnInit, OnDestroy {
   multipleSlotSlideModel: any;
   multipleSlotDropdownModel: any;
   multipleDaysSlideModel: any;
-  weekModel: any = [];
   minDate = new Date();
   currentDate = new Date();
   maxDate = new Date(2099, 3, 21, 20, 30);
@@ -42,9 +41,9 @@ export class BookingFormPage implements OnInit, OnDestroy {
   finalDays = [0, 0, 0, 0, 0, 0, 0];
   dateDiff: number = 1;
   isReScheduleFlag: boolean = false;
-  businessUnits: any = [{ label: 'Select Business Unit', value: null }];
-  technologies: any = [{ label: 'Select Technology', value: null }];
-  interviewersArray: any = [{ label: 'Select Interviewer', value: null }];
+  businessUnits: any = [];
+  technologies: any = [];
+  interviewersArray: any = [];
   selectedBussinessUnit: any;
   selectedTechnology: any;
   selectedInterviewer: any;
@@ -106,15 +105,6 @@ export class BookingFormPage implements OnInit, OnDestroy {
     isChecked: false,
     isDisabled: true
   }];
-
-  weekData: SelectItem[] = [
-    { label: 'Sunday', value: { id: 1, name: 'Sunday' } },
-    { label: 'Monday', value: { id: 2, name: 'Monday' } },
-    { label: 'Tuesday', value: { id: 3, name: 'Tuesday' } },
-    { label: 'Wednusday', value: { id: 4, name: 'Wednusday' } },
-    { label: 'Thursday', value: { id: 5, name: 'Thursday' } },
-    { label: 'Friday', value: { id: 6, name: 'Friday' } },
-    { label: 'Saturday', value: { id: 7, name: 'Saturday' } }];
 
   interviewTypes = [];
 
@@ -178,27 +168,21 @@ export class BookingFormPage implements OnInit, OnDestroy {
           });
 
           let buArray = this.data.buArray;
-          this.businessUnits = [{ label: 'Select Business Unit', value: null }];
+          this.businessUnits = [];
           let technologyArray = this.data.technologyArray;
           buArray.forEach(bu => {
             let object = {
-              label: bu.name,
-              value: {
-                id: Number(bu.id),
-                name: bu.name
-              }
+              id: Number(bu.id),
+              name: bu.name
             }
             this.businessUnits.push(object)
           });
 
-          this.technologies = [{ label: 'Select Technology', value: null }];
+          this.technologies = [];
           technologyArray.forEach(tech => {
             let object = {
-              label: tech.name,
-              value: {
-                id: Number(tech.id),
-                name: tech.name
-              }
+              id: Number(tech.id),
+              name: tech.name
             }
             this.technologies.push(object)
           });
@@ -210,13 +194,13 @@ export class BookingFormPage implements OnInit, OnDestroy {
             this.candidateName = this.rescheduleSlotInfo.candidateName;
             this.interviewType = this.rescheduleSlotInfo.interviewTypeId.toString();
             let selectedBussinessUnit = this.businessUnits.filter(bu => {
-              return bu.value && bu.value.id === this.rescheduleSlotInfo.buId
+              return bu && bu.id === this.rescheduleSlotInfo.buId
             });
             let selectedTechnology = this.technologies.filter(tech => {
-              return tech.value && tech.value.id === this.rescheduleSlotInfo.technologyId
+              return tech && tech.id === this.rescheduleSlotInfo.technologyId
             })
-            this.selectedBussinessUnit = selectedBussinessUnit[0].value;
-            this.selectedTechnology = selectedTechnology[0].value;
+            this.selectedBussinessUnit = selectedBussinessUnit[0];
+            this.selectedTechnology = selectedTechnology[0];
             this.comments = this.rescheduleSlotInfo.comments
           }
         }
@@ -224,6 +208,20 @@ export class BookingFormPage implements OnInit, OnDestroy {
       this.data.getlookUpData();
     }
     // });
+  }
+
+
+  getTechnology(event) {
+    console.log(event);
+    this.selectedTechnology = event;
+  }
+  getBU(event) {
+    console.log(event);
+    this.selectedBussinessUnit = event;
+  }
+  getInterviewer(event) {
+    console.log(event);
+    this.selectedInterviewer = event;
   }
 
   async toasterNotification(message) {
@@ -341,13 +339,6 @@ export class BookingFormPage implements OnInit, OnDestroy {
               toRepeat = fromRepeat + (60 * 60 * 1000);
             }
           } else {
-
-
-            // if (this.weekModel.length !== 0) {
-            // this.weekModel.forEach(week => {
-            //   this.finalDays[week.id - 1] = 1
-            // });
-
             if (this.showCheckBox) {
               let isCheckedCount = 0;
               this.weekDays.forEach(weekDay => {
@@ -619,24 +610,6 @@ export class BookingFormPage implements OnInit, OnDestroy {
     this.bookingDateInfoSubscription.unsubscribe();
   }
 
-  // onWeekDaysBlur() {
-  // console.log(this.weekModel);
-  // this.finalDays
-  // }
-
-  // removeDay(day) {
-  //   console.log(day);
-  //   console.log(this.weekModel);
-
-  //   let sampleArray = this.weekModel;
-
-  //   let index = sampleArray.indexOf(day);
-  //   console.log(index)
-  //   sampleArray.splice(index, 1);
-  //   this.weekModel = JSON.parse(JSON.stringify(sampleArray));
-  //   console.log(this.weekModel);
-
-  // }
 
   timeSet(event) {
     console.log(event);
@@ -748,18 +721,16 @@ export class BookingFormPage implements OnInit, OnDestroy {
       console.log("body ", obj);
       this.data.getInterviewerForRecruiter(obj).subscribe(res => {
         console.log("interviewer ", res);
-        this.interviewersArray = [{ label: 'Select Interviewer', value: null }];
+        // this.interviewersArray = [{ label: 'Select Interviewer', value: null }];
+        this.interviewersArray = [];
         let interArr = [];
 
         if (res['response'][0].length !== 0) {
           interArr = res['response'][0];
           interArr.forEach(inter => {
             let object = {
-              label: inter.name + ' -  ' + inter.grade + ' -  ' + inter.location + ' -  ' + inter.account + ' - ' + inter.marketUnit,
-              value: {
-                id: Number(inter.interviewerId),
-                name: inter.name + ' -  ' + inter.grade + ' -  ' + inter.location + ' -  ' + inter.account + ' - ' + inter.marketUnit
-              }
+              id: Number(inter.interviewerId),
+              name: inter.name + ' -  ' + inter.grade + ' -  ' + inter.location + ' -  ' + inter.account + ' - ' + inter.marketUnit
             }
             this.interviewersArray.push(object);
           });

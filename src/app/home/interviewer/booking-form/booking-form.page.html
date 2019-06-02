@@ -19,8 +19,6 @@
 </ion-header>
 
 <ion-content>
-  <!-- <ion-card>
-    <ion-card-content class="somePadding fullHeight"> -->
   <ion-grid>
     <ion-row>
       <!-- <ion-label position="stacked">Booking Slot</ion-label> -->
@@ -38,7 +36,10 @@
         <ngx-material-timepicker (timeSet)="timeSet($event)" [minutesGap]="5" #default></ngx-material-timepicker>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="isRecruiter">
+
+
+
+    <!-- <ion-row *ngIf="isRecruiter">
       <ion-col>
         <ion-label position="stacked">Interview Type</ion-label>
         <ion-select class="interviewTypeClass" interface="popover" placeholder="Select Interview Type" [(ngModel)]="interviewType"
@@ -46,29 +47,95 @@
           <ion-select-option value="{{iType.id}}" *ngFor="let iType of interviewTypes">{{iType.value}}</ion-select-option>
         </ion-select>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
 
-    <ion-row *ngIf="isRecruiter">
+    <!-- <ion-row *ngIf="isRecruiter">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <ion-label position="stacked">Technology</ion-label>
         <p-dropdown [options]="technologies" [(ngModel)]="selectedTechnology" [filter]="true" filterBy="label,value.name"
           (onChange)="techChange($event)"></p-dropdown>
       </ion-col>
-    </ion-row>
-    <ion-row *ngIf="isRecruiter">
+    </ion-row> -->
+
+    <!-- <ion-row *ngIf="isRecruiter">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <ion-label position="stacked">Business Unit</ion-label>
         <p-dropdown [options]="businessUnits" [(ngModel)]="selectedBussinessUnit" [filter]="true" filterBy="label,value.name"
           (onChange)="buChange($event)"></p-dropdown>
       </ion-col>
     </ion-row>
+
     <ion-row *ngIf="isRecruiter">
       <ion-col size-xs="12" size-sm="12" size-md="12">
         <ion-label position="stacked">Interviewer's Availability</ion-label>
         <p-dropdown [options]="interviewersArray" [(ngModel)]="selectedInterviewer" [filter]="true" filterBy="label,value.name"
           (onChange)="interviewerChange($event)"></p-dropdown>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
+
+    <!-- <ion-row *ngIf="isRecruiter">
+      <ion-col size-xs="12" size-sm="12" size-md="12">
+        <ion-label position="stacked">Comments</ion-label>
+        <ion-textarea [(ngModel)]="comments" class="lightGreyBackground">
+        </ion-textarea>
+      </ion-col>
+    </ion-row> -->
+
+
+    <ion-list *ngIf="isRecruiter" class="ionList">
+      <!-- <ion-list-header>Single Selection</ion-list-header> -->
+
+      <ion-item class="ionItem">
+        <ion-label>Interview Type</ion-label>
+        <ion-icon class="ionIcons" slot="start" mode="ios" name="contacts"></ion-icon>
+        <ion-select class="interviewTypeClass" interface="popover" placeholder="Select Interview Type" [(ngModel)]="interviewType"
+          (ionChange)="intTypeChange($event)">
+          <ion-select-option value="{{iType.id}}" *ngFor="let iType of interviewTypes">{{iType.value}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <app-select [label]="'Technology'" [items]="technologies" [selectedItem]="selectedTechnology" [isMultiple]="false" [icon]="'bulb'"
+        (output)="getTechnology($event)">
+      </app-select>
+
+      <app-select [label]="'Business Unit'" [items]="businessUnits" [selectedItem]="selectedBussinessUnit" [isMultiple]="false" [icon]="'business'"
+        (output)="getBU($event)">
+      </app-select>
+      
+      <app-select [label]="'Interviewer Availability'" [items]="interviewersArray" [selectedItem]="selectedInterviewer" [icon]="'person'"
+        [isMultiple]="false" (output)="getInterviewer($event)">
+      </app-select>
+
+      <ion-item class="ionItem">
+        <ion-label position="floating">Comments</ion-label>
+        <ion-icon class="ionIcons" slot="start" mode="ios" name="chatboxes"></ion-icon>
+        <ion-textarea [(ngModel)]="comments">
+        </ion-textarea>
+      </ion-item>
+    </ion-list>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <ion-row *ngIf="isInterviewer && !isReScheduleFlag">
       <ion-col size-xs="3" size-sm="3" size-md="3">
@@ -84,7 +151,6 @@
         </ion-select>
       </ion-col>
     </ion-row>
-
 
     <ion-row *ngIf="isInterviewer && !isReScheduleFlag">
       <ion-col size-xs="3" size-sm="3" size-md="3">
@@ -104,7 +170,8 @@
         <!-- <ion-icon class="calendarIcon" [owlDateTimeTrigger]="dt1" size="large" name="calendar"></ion-icon> -->
 
         <owl-date-time-inline #dt1 [min]="bookingDateInDateFormat" [selectMode]="'rangeTo'" [(ngModel)]="selectedDateRange"
-          [max]="maxDate" [startAt]="minDate" [pickerType]="'calendar'" (ngModelChange)="dateTimeChangeEvent($event)" [owlDateTimeFilter]="myFilter"></owl-date-time-inline>
+          [max]="maxDate" [startAt]="minDate" [pickerType]="'calendar'" (ngModelChange)="dateTimeChangeEvent($event)"
+          [owlDateTimeFilter]="myFilter"></owl-date-time-inline>
 
       </ion-col>
     </ion-row>
@@ -115,29 +182,12 @@
           <strong [ngStyle]="{'opacity' : day.isDisabled ? '0.3' : '1' }">
             {{day.value}}
           </strong>
-          <ion-checkbox [(ngModel)]="day.isChecked" [checked]="day.isChecked" [disabled]="day.isDisabled" mode="ios" (ionChange)="checkBoxChange($event,day)"></ion-checkbox>
+          <ion-checkbox [(ngModel)]="day.isChecked" [checked]="day.isChecked" [disabled]="day.isDisabled" mode="ios"
+            (ionChange)="checkBoxChange($event,day)"></ion-checkbox>
         </span>
 
       </div>
     </ion-row>
-
-    <!-- <ion-row *ngIf="multipleDaysSlideModel">
-      <ion-col size-xs="12" size-sm="12" size-md="12">
-        <p-multiSelect [style]="{'width': '100%'}" [filter]="false" [options]="weekData" [(ngModel)]="weekModel"
-          (onChange)="onWeekDaysBlur()"></p-multiSelect>
-      </ion-col>
-    </ion-row> -->
-
-
-    <!-- <ion-row *ngIf="multipleDaysSlideModel && weekModel && weekModel.length >= 4">
-      <ion-col size-xs="12" size-sm="12" size-md="12">
-        <ion-chip *ngFor="let day of weekModel" class="fontSizeForIonChip">
-          <ion-label>{{day.name}}</ion-label>
-          <ion-icon name="close" (click)="removeDay(day)"></ion-icon>
-        </ion-chip>
-      </ion-col>
-    </ion-row> -->
-
 
     <ion-row *ngIf="isInterviewer">
       <ion-col size-xs="12" size-sm="12" size-md="12">
@@ -150,13 +200,7 @@
     </ion-row>
 
 
-    <ion-row *ngIf="isRecruiter">
-      <ion-col size-xs="12" size-sm="12" size-md="12">
-        <ion-label position="stacked">Comments</ion-label>
-        <ion-textarea [(ngModel)]="comments" class="lightGreyBackground">
-        </ion-textarea>
-      </ion-col>
-    </ion-row>
+
 
     <ion-row>
       <ion-col size-xs="3" size-sm="3" size-md="3">
@@ -174,7 +218,4 @@
 
 
   </ion-grid>
-  <!-- 
-    </ion-card-content>
-  </ion-card> -->
 </ion-content>

@@ -58,12 +58,13 @@
     vertical-align: middle;
 }
 
-.lightGreyBackground{
+.multipleSlotClass,.participationTypeClass{
     background: lightgrey;
 }
 
-.interviewTypeClass, .multipleSlotClass,.participationTypeClass{
-    background: lightgrey;
+.interviewTypeClass {
+    width: 100%;
+    padding: 0px;
 }
 
 .fullWidth{
@@ -106,4 +107,19 @@
 .checkboxIonRow{
     background: #d4e7fb;
     padding: 6px 0px;
+    margin-top: 2%;
+}
+
+.ionList{
+    background: #abc6f5;
+    padding: 1%;
+}
+
+.ionIcons{
+    margin: 0px 6px 0px 0px;
+}
+.ionItem{
+    font-size: 14px;
+    font-weight: bold;
+    // color: #3880ff;
 }

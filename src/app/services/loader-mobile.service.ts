@@ -21,7 +21,11 @@ export class LoaderMobileService {
   }
 
   hide() {
-    this.loading.dismiss();
+    if(this.loading){
+      this.loading.dismiss();
+    }else{
+
+    }
   }
 
 
