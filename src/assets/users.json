@@ -1,0 +1,251 @@
+[
+    {
+        "id": "caf52275-f3e8-42a2-9883-81201b67d263",
+        "createdTimestamp": 1559835403985,
+        "username": "abc",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "firstName": "abc",
+        "lastName": "def",
+        "email": "abc@capgemini.com",
+        "disableableCredentialTypes": [
+            "password"
+        ],
+        "requiredActions": [
+            "VERIFY_EMAIL"
+        ],
+        "notBefore": 0,
+        "access": {
+            "manageGroupMembership": true,
+            "view": true,
+            "mapRoles": true,
+            "impersonate": true,
+            "manage": true
+        },
+        "isNew":true,
+        "grade":"B1",
+        "role":"Interviewer",
+        "employeeId":"121386",
+        "location":"Mumbai",
+        "technology":"Angular,Java",
+        "businessUnit":"AppsNA-CSD",
+        "marketUnit":"Industrial Unit",
+        "account":"TCG"
+
+    },
+    {
+        "id": "99ce101d-855a-45d9-be0c-136e0ddd9b1b",
+        "createdTimestamp": 1559217236591,
+        "username": "akshat",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": true,
+        "firstName": "Akshat",
+        "lastName": "Mangal",
+        "email": "akshat.mangal@capgemini.com",
+        "disableableCredentialTypes": [
+            "password"
+        ],
+        "requiredActions": [],
+        "notBefore": 0,
+        "access": {
+            "manageGroupMembership": true,
+            "view": true,
+            "mapRoles": true,
+            "impersonate": true,
+            "manage": true
+        },
+        "isNew":true,
+        "grade":"C1",
+        "role":"Interviewer",
+        "employeeId":"567489",
+        "location":"Chennai",
+        "technology":"Linux,DevOps,Hibernate,C#,JQuery",
+        "businessUnit":"AppsNA-CSD",
+        "marketUnit":"Industrial Unit",
+        "account":"TCG"
+    },
+    {
+        "id": "02e79132-8db9-4e66-b32e-b38fcd2b32fd",
+        "createdTimestamp": 1559833584517,
+        "username": "anjali.sharma@capgemini.com",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "firstName": "Anjali",
+        "lastName": "Sharma",
+        "email": "anjali.sharma@capgemini.com",
+        "disableableCredentialTypes": [
+            "password"
+        ],
+        "requiredActions": [],
+        "notBefore": 0,
+        "access": {
+            "manageGroupMembership": true,
+            "view": true,
+            "mapRoles": true,
+            "impersonate": true,
+            "manage": true
+        },
+        "isNew":true,
+        "grade":"B2",
+        "role":"Recruiter",
+        "employeeId":"123456",
+        "location":"Mumbai"
+    },
+    {
+        "id": "a4e461fa-5659-4cbe-9c1d-4cbc13e10027",
+        "createdTimestamp": 1559841241683,
+        "username": "daulat.yadav@capgemini.com",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "firstName": "Daulat",
+        "lastName": "Yadav",
+        "email": "daulat.yadav@capgemini.com",
+        "disableableCredentialTypes": [
+            "password"
+        ],
+        "requiredActions": [],
+        "notBefore": 0,
+        "access": {
+            "manageGroupMembership": true,
+            "view": true,
+            "mapRoles": true,
+            "impersonate": true,
+            "manage": true
+        },
+        "isNew":true,
+        "grade":"D2",
+        "role":"Interviewer",
+        "employeeId":"987654",
+        "location":"Hydrabad",
+        "technology":"JavaScript,PLSQL,Web Services,Linux,DevOps,Hibernate,C#,JQuery,Backbone JS",
+        "businessUnit":"AppsNA-CSD",
+        "marketUnit":"Industrial Unit",
+        "account":"TCG"
+    },
+    {
+        "id": "33f5dace-57b6-40ac-af28-7a4f2d5c9fa8",
+        "createdTimestamp": 1559839042949,
+        "username": "gaurav.singh@capgemini.com",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "firstName": "Gaurav",
+        "lastName": "Singh",
+        "email": "gaurav.singh@capgemini.com",
+        "disableableCredentialTypes": [
+            "password"
+        ],
+        "requiredActions": [],
+        "notBefore": 0,
+        "access": {
+            "manageGroupMembership": true,
+            "view": true,
+            "mapRoles": true,
+            "impersonate": true,
+            "manage": true
+        },
+        "isNew":true,
+        "grade":"B2",
+        "role":"Recruiter",
+        "employeeId":"121386",
+        "location":"Delhi"
+    },
+    {
+        "id": "091fc812-3e94-4e3d-9594-ba94d9b973e8",
+        "createdTimestamp": 1559134189983,
+        "username": "milind",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "firstName": "Milind",
+        "lastName": "Rohokale",
+        "email": "milind.rohokale@capgemini.com",
+        "disableableCredentialTypes": [
+            "password"
+        ],
+        "requiredActions": [],
+        "notBefore": 0,
+        "access": {
+            "manageGroupMembership": true,
+            "view": true,
+            "mapRoles": true,
+            "impersonate": true,
+            "manage": true
+        },
+        "isNew":true,
+        "grade":"C2",
+        "role":"Interviewer",
+        "employeeId":"872365",
+        "location":"Mumbai",
+        "technology":"Oracle,Cobol",
+        "businessUnit":"AppsNA-CSD",
+        "marketUnit":"Industrial Unit",
+        "account":"TCG"
+    },
+    {
+        "id": "d5cf422c-9105-45b2-b0e8-1335cd29dedd",
+        "createdTimestamp": 1559129928647,
+        "username": "vasu",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "firstName": "Vasu",
+        "lastName": "Sharma",
+        "email": "vasu.sharma@capgemini.com",
+        "disableableCredentialTypes": [
+            "password"
+        ],
+        "requiredActions": [],
+        "notBefore": 0,
+        "access": {
+            "manageGroupMembership": true,
+            "view": true,
+            "mapRoles": true,
+            "impersonate": true,
+            "manage": true
+        },
+        "isNew":true,
+        "grade":"C1",
+        "role":"Interviewer",
+        "employeeId":"2341567",
+        "location":"Bangalore",
+        "technology":"Python,Java",
+        "businessUnit":"AppsNA-CSD",
+        "marketUnit":"Industrial Unit",
+        "account":"TCG"
+    },
+    {
+        "id": "22048202-1030-433f-bbf6-d162dbf26f16",
+        "createdTimestamp": 1559890632695,
+        "username": "vijay.prasad@capgemini.com",
+        "enabled": true,
+        "totp": false,
+        "emailVerified": false,
+        "firstName": "vijay",
+        "lastName": "",
+        "email": "vijay.prasad@capgemini.com",
+        "disableableCredentialTypes": [
+            "password"
+        ],
+        "requiredActions": [
+            "VERIFY_EMAIL"
+        ],
+        "notBefore": 0,
+        "access": {
+            "manageGroupMembership": true,
+            "view": true,
+            "mapRoles": true,
+            "impersonate": true,
+            "manage": true
+        },
+        "isNew":true,
+        "grade":"D1",
+        "role":"Recruiter",
+        "employeeId":"143526",
+        "location":"Chennai"
+    }
+]

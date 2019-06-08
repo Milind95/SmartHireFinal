@@ -1,0 +1,90 @@
+.contentClass, .headerClass{
+    padding: 5px;
+}
+.shortVerticalLine{
+    height: 18%;
+    width: 2px;
+    background:black;
+}
+.verticalLine{
+    height: 25%;
+    width: 2px;
+    background:black;
+}
+
+.round{
+    height: 5%;
+    width: 30%;
+    border-radius: 50%;
+    margin: 10% 0%;
+}
+
+.red{
+    background: red;
+}
+.green{
+    background: green;
+}
+.grey{
+    background: grey;
+}
+.yellow{
+    background: yellow;
+
+}
+
+.centreAlign{
+    text-align: -webkit-center;
+}
+.zeroPadding{
+    padding: 0px;
+}
+
+.widthClass{
+    width: 50%
+}
+
+.roundText{
+    font-size: 10px;
+    display: inline-block;
+}
+
+.icon{
+    margin-top: -10% !important;
+    margin-right: 4%;
+}
+
+.ionItem{
+    --padding-start: 0px;
+    --padding-end: 0px;
+}
+
+.rowBottom{
+    border-bottom: 1px dotted grey;
+}
+
+.ionCardTitle{
+    margin-top: 0px;
+    font-weight: bold;
+}
+
+.textWrap{
+    white-space: nowrap;
+}
+
+.ionInput{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.blinking{
+    animation:blinkingBackground 0.8s infinite;
+}
+
+@keyframes blinkingBackground{
+    0%{     background: yellow;    }
+    49%{    color: transparent; }
+    50%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: yellow;    }
+}

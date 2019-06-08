@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'available', loadChildren: './home/interviewer/booking-view/available/available.module#AvailablePageModule' },
   { path: 'booked', loadChildren: './home/interviewer/booking-view/booked/booked.module#BookedPageModule' },
   { path: 'interviewed', loadChildren: './home/interviewer/booking-view/interviewed/interviewed.module#InterviewedPageModule' },
-  { path: 'panel-availability', loadChildren: './home/interviewer/booking-view/panel-availability/panel-availability.module#PanelAvailabilityPageModule' }
+  { path: 'panel-availability', loadChildren: './home/interviewer/booking-view/panel-availability/panel-availability.module#PanelAvailabilityPageModule' },
+  { path: 'admin', loadChildren: './admin/admin.module#AdminPageModule' }
 ];
 
 @NgModule({

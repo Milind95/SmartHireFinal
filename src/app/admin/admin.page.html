@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>admin</ion-title>
+    <!-- <span class="blinking">Am I blinking?</span> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" size-xl="4" *ngFor="let user of users">
+        <ion-card>
+          <ion-grid>
+            <ion-row>
+              <ion-col size-xs="2" size-sm="2" size-md="2" size-lg="2" size-xl="2" class="centreAlign">
+                <div class="shortVerticalLine">
+                </div>
+                <div class="round" [ngClass]="{'green':user.emailVerified,'red':!user.emailVerified}">
+                </div>
+                <strong class="roundText" [ngStyle]="{color:user.emailVerified ? 'green':'grey'}">
+                  {{user.emailVerified ? 'Email Verification Completed' : 'Email Verification Pending'}}
+                </strong>
+                <div class="verticalLine">
+                </div>
+                <div class="round" [ngClass]="{'green':!user.isNew,'grey':!user.emailVerified && user.isNew,'blinking':user.emailVerified && user.isNew}">
+                </div>
+                <strong class="roundText" [ngStyle]="{color:!user.isNew ? 'green':'grey'}">
+                  {{!user.isNew ? 'Approved' : 'Pending Approval'}}
+                </strong>
+                <div class="shortVerticalLine">
+                </div>
+              </ion-col>
+
+              <ion-col size-xs="10" size-sm="10" size-md="10" size-lg="10" size-xl="10">
+                <ion-card-header class="headerClass">
+                  <ion-row>
+                    <ion-col size-xs="8" size-sm="8" size-md="9" size-lg="9" size-xl="9">
+                      <ion-card-subtitle>{{user.email}}</ion-card-subtitle>
+                    </ion-col>
+                    <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="3" size-xl="3">
+                      <ion-chip>
+                        <ion-icon name="ribbon" color="dark"></ion-icon>
+                        <ion-label>{{user.grade}}</ion-label>
+                      </ion-chip>
+                    </ion-col>
+                  </ion-row>
+
+                  <ion-card-title class="ionCardTitle">{{user.firstName}} {{''}} {{user.lastName}} {{' ('}}
+                    {{user.employeeId}} {{') '}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="contentClass">
+                  <ion-list class="zeroPadding">
+                    <ion-row class="rowBottom">
+                      <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+                        <ion-item class="zeroPadding ionItem" lines="none">
+                          <ion-label position="stacked">Role</ion-label>
+                          <ion-icon class="icon" slot="start" name="contacts"></ion-icon>
+                          <ion-input class="ionInput" [title]="user.role" disabled>{{user.role}}</ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+                        <ion-item class="zeroPadding ionItem" lines="none">
+                          <ion-label position="stacked">Location</ion-label>
+                          <ion-icon class="icon" slot="start" name="pin"></ion-icon>
+                          <ion-input class="ionInput" [title]="user.location" disabled>{{user.location}}</ion-input>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="rowBottom">
+                      <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+                        <ion-item class="zeroPadding ionItem" lines="none">
+                          <ion-label position="stacked">Technology</ion-label>
+                          <ion-icon class="icon" slot="start" name="desktop"></ion-icon>
+                          <ion-input class="ionInput textWrap" [title]="user.technology" disabled>{{user.technology?.length
+                            > 10
+                            ? user.technology.slice(0,10) + '...' : user.technology}}</ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+                        <ion-item class="zeroPadding ionItem" lines="none">
+                          <ion-label position="stacked">Business Unit</ion-label>
+                          <ion-icon class="icon" slot="start" name="business"></ion-icon>
+                          <ion-input class="ionInput" [title]="user.businessUnit" disabled>{{user.businessUnit}}</ion-input>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row class="rowBottom">
+                      <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+                        <ion-item class="zeroPadding ionItem" lines="none">
+                          <ion-label position="stacked">Market Unit</ion-label>
+                          <ion-icon class="icon" slot="start" name="people"></ion-icon>
+                          <ion-input class="ionInput" [title]="user.marketUnit" disabled>{{user.marketUnit}}</ion-input>
+                        </ion-item>
+                      </ion-col>
+                      <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+                        <ion-item class="zeroPadding ionItem" lines="none">
+                          <ion-label position="stacked">Account</ion-label>
+                          <ion-icon class="icon" slot="start" name="at"></ion-icon>
+                          <ion-input class="ionInput" [title]="user.account" disabled>{{user.account}}</ion-input>
+                        </ion-item>
+                      </ion-col>
+                    </ion-row>
+                  </ion-list>
+                  <ion-row>
+                    <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+                      <ion-button color="primary" expand="block" fill="outline" [disabled]="!user.emailVerified">
+                        <ion-icon slot="start" name="checkmark"></ion-icon>
+                        Approve
+                      </ion-button>
+                    </ion-col>
+                    <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="6" size-xl="6">
+                      <ion-button color="danger" expand="block" fill="outline">
+                        <ion-icon slot="start" name="close"></ion-icon>
+                        Decline
+                      </ion-button>
+                    </ion-col>
+                  </ion-row>
+                </ion-card-content>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
