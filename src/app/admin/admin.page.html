@@ -1,18 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>admin</ion-title>
-    <!-- <span class="blinking">Am I blinking?</span> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="4" size-lg="3" size-xl="3">
+          <ion-title>admin</ion-title>
+        </ion-col>
+        <ion-col size-xs="0" size-sm="0" size-md="4" size-lg="6" size-xl="6">
+
+        </ion-col>
+        <ion-col size-xs="12" size-sm="12" size-md="4" size-lg="3" size-xl="3">
+          <ion-searchbar [(ngModel)]="searchValue" class="searchbar" mode="ios" placeholder="Search Users (EmpName, EmpId)"
+            animated (ionChange)="searchValues($event)"></ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" size-xl="4" *ngFor="let user of users">
-        <ion-card>
+      <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" size-xl="4" *ngFor="let user of users | paginate: { itemsPerPage: 6, currentPage: p,id: 'admin' }">
+        <ion-card class="ionCard">
           <ion-grid>
             <ion-row>
-              <ion-col size-xs="2" size-sm="2" size-md="2" size-lg="2" size-xl="2" class="centreAlign">
+              <ion-col size-xs="2" size-sm="2" size-md="2" size-lg="2" size-xl="2" class="centreAlign statusBarClass">
                 <div class="shortVerticalLine">
                 </div>
                 <div class="round" [ngClass]="{'green':user.emailVerified,'red':!user.emailVerified}">
@@ -45,8 +57,11 @@
                     </ion-col>
                   </ion-row>
 
-                  <ion-card-title class="ionCardTitle">{{user.firstName}} {{''}} {{user.lastName}} {{' ('}}
-                    {{user.employeeId}} {{') '}}</ion-card-title>
+                  <ion-card-title class="ionCardTitle">{{user.firstName}} {{''}} {{user.lastName}} 
+                  <sub>
+                      ( {{user.employeeId}} )
+                  </sub>
+                  </ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="contentClass">
                   <ion-list class="zeroPadding">
@@ -123,4 +138,15 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <pagination-controls id='admin' (pageChange)="p = $event" 
+  maxSize="3"
+  directionLinks="true"
+  autoHide="true"
+  responsive="false"
+  previousLabel=""
+  nextLabel=""
+  screenReaderPaginationLabel="Pagination"
+  screenReaderPageLabel="page"
+  screenReaderCurrentLabel="You're on page"></pagination-controls>
 </ion-content>

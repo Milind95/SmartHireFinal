@@ -1,5 +1,13 @@
-.contentClass, .headerClass{
+.headerClass{
+    border: 1px dashed #9cc0ff;
     padding: 5px;
+}
+
+.contentClass{
+    padding: 5px;
+    border-bottom: 1px dashed #9cc0ff;
+    border-right: 1px dashed #9cc0ff;
+    border-left: 1px dashed #9cc0ff;
 }
 .shortVerticalLine{
     height: 18%;
@@ -66,6 +74,8 @@
 .ionCardTitle{
     margin-top: 0px;
     font-weight: bold;
+    font-size: 16px;
+    padding: 0% 2%;
 }
 
 .textWrap{
@@ -87,4 +97,18 @@
     50%{    color: transparent; }
     99%{    color:transparent;  }
     100%{   color: yellow;    }
+}
+
+.searchbar{
+    padding: 0px;
+    margin: 0px;
+}
+
+.statusBarClass{
+    background: #ededed;
+}
+
+.ionCard:hover{
+    // box-shadow: 0 0 0 1px #4286f4;
+    // transition: all 200ms ease-out;
 }
