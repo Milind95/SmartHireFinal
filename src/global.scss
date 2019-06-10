@@ -206,3 +206,27 @@
 .ionic-selectable-label-default .ionic-selectable-value, .ionic-selectable-label-fixed .ionic-selectable-value {
     padding: 0px !important;
 }
+
+.ngx-pagination {
+    text-align: center !important;
+}
+.ngx-pagination li {
+    border-radius: 50% !important;
+}
+.ngx-pagination a, .ngx-pagination button {
+    border-radius: 50% !important;
+    text-decoration: none !important;
+}
+
+.ngx-pagination li.pagination-previous a {
+   padding: 0px 0px 0px 8px !important;
+   border-radius: 2% !important;
+}
+.ngx-pagination li.pagination-next a {
+    padding: 0px 8px 0px 0px !important;
+    border-radius: 2% !important;
+ }
+ .ngx-pagination .current {
+    background: #3880ff !important;
+    color: white !important;
+}
