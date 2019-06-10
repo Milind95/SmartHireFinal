@@ -32,9 +32,9 @@ const colors: any = {
   providedIn: 'root'
 })
 export class DataService {
-  link: string = "http://108.128.179.35:8000";
+  // link: string = "http://108.128.179.35:8000";
 
-  // link: string = "http://3.209.34.157:8080";
+  link: string = "http://3.209.34.157:8080";
   // link: string = "https://smarthire-ms-prod.run.aws-usw02-pr.ice.predix.io";
 
   userRole: string;
